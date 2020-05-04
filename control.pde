@@ -3,13 +3,14 @@ import com.hamoid.*;
 
 boolean setuped = false;
 
+//Resizes button images to a default through whole application
 public void resizeImages(PImage[] imgs) {
   for (int i = 0; i <= 2; i++) {
     imgs[i].resize(135,90);
   }
 }
 
-void settings(){
+void settings() {
   size(1080,720);
 }
 
@@ -18,6 +19,7 @@ void setup() {
   
   ControlP5 cp5 = new ControlP5(this);
   
+  //Define menu images
   PImage[] videoRecorderImages = {
     loadImage("videoRecorderDefault.png"),
     loadImage("videoRecorderHover.png"),
@@ -33,6 +35,7 @@ void setup() {
   resizeImages(videoRecorderImages);
   resizeImages(imageRecorderImages);
 
+  //Add menu buttons
   cp5.addButton("VideoRecorder")
      .setPosition(260,300)
      .setValue(0)
@@ -53,7 +56,8 @@ void setup() {
 void draw() {
 }
 
-public void VideoRecorder(){
+//Button functions, opens new windows
+public void VideoRecorder() {
   if (setuped) {
     String[] args = {"VideoRecorder"};
     VideoRecorder vr = new VideoRecorder();
@@ -61,7 +65,7 @@ public void VideoRecorder(){
   }
 }
 
-public void ImageRecorder(){
+public void ImageRecorder() {
   if (setuped) {
     String[] args = {"ImageRecorder"};
     ImageRecorder ir = new ImageRecorder();
@@ -69,7 +73,7 @@ public void ImageRecorder(){
   }
 }
 
-//Video Recorder
+//VIDEO RECORDER
 public class VideoRecorder extends PApplet {
   VideoExport videoExport;
   ControlP5 cp5;
@@ -88,6 +92,7 @@ public class VideoRecorder extends PApplet {
   
   cp5 = new ControlP5(this);
   
+  //Define VideoRecorder images
   PImage[] startImages = {
     loadImage("startdefault.png"),
     loadImage("starthover.png"),
@@ -106,6 +111,7 @@ public class VideoRecorder extends PApplet {
   PImage blackImage = loadImage("black.png");
   PImage eraser = loadImage("eraser.png");
   
+  //Resize VideoRecorder images
   eraser.resize(50,50);
   blackImage.resize(50,50);
   greenImage.resize(50,50);
@@ -114,6 +120,7 @@ public class VideoRecorder extends PApplet {
   resizeImages(startImages);
   resizeImages(stopImages);
   
+  //Create VideoRecorder buttons
   PFont font = createFont("arial", 20);
   cp5.addTextfield("videoName")
      .setPosition(100, 600)
@@ -163,12 +170,15 @@ public class VideoRecorder extends PApplet {
    setuped = true;
   }
   
-  void draw() { 
+  void draw() {
+
+    //Draws ellipse with pickedColor
     if (mousePressed) {
       fill(pickedColor);
       ellipse(mouseX, mouseY, 40, 40);
     }
     
+    //Starts recording if videoStarted
     if (videoStarted) {
       videoExport.saveFrame();
     }
@@ -230,29 +240,8 @@ public class VideoRecorder extends PApplet {
   }
 }
 
-public class JoJo extends PApplet {
- 
-  public void settings() {
-    size(200, 100);
-  }
-  public void draw() {
-    background(255);
-    fill(0);
-    ellipse(100, 50, 10, 10);
-  }
-}
 
-public class Ricardo extends PApplet {
-  public void settings() {
-    size(400,400);
-  }
-  
-  public void draw() {
-    background(0);
-  }
-}
-
-//Image Recorder
+//IMAGE RECORDER
 public class ImageRecorder extends PApplet {
   ControlP5 cp5;
   String imageName;
@@ -264,10 +253,12 @@ public class ImageRecorder extends PApplet {
   }
   
   void setup() {
+    noStroke();
     background(200);
     
     cp5 = new ControlP5(this);
     
+    //Define ImageRecorder images
     PImage[] captureImages = {
       loadImage("captureImageDefault.png"),
       loadImage("captureImageHover.png"),
@@ -342,6 +333,7 @@ public class ImageRecorder extends PApplet {
   }
   
   void draw() { 
+    //Draw ellipse with pickedColor
     if (mousePressed) {
       fill(pickedColor);
       ellipse(mouseX, mouseY, 40, 40);
